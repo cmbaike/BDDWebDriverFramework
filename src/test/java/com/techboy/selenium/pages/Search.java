@@ -26,8 +26,7 @@ public class Search {
           searchfield.clear();
           searchfield.sendKeys(query);
           searchfield.submit();
-        //driver.findElement(By.name("q")).sendKeys(query);
-        return new SearchPageResult();
+          return new SearchPageResult();
     }
 
 }
