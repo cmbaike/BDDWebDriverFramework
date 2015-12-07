@@ -2,17 +2,16 @@ package com.techboy.selenium.step_def;
 
 import com.techboy.selenium.beanconfig.BeanConfig;
 import com.techboy.selenium.beanconfig.PageObjectPostProcessor;
+import com.techboy.selenium.pages.HomePage;
+import com.techboy.selenium.pages.Search;
+import com.techboy.selenium.pages.SearchPageResult;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
-import com.techboy.selenium.pages.HomePage;
-import com.techboy.selenium.pages.Search;
-import com.techboy.selenium.pages.SearchPageResult;
 
 import java.util.List;
 
@@ -23,8 +22,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
-@ComponentScan(basePackageClasses = {SearchPageResult.class, PageObjectPostProcessor.class})
-@ContextConfiguration(classes={BeanConfig.class,SearchPageResult.class})
+@ContextConfiguration(classes={BeanConfig.class,SearchPageResult.class,HomePage.class,Search.class,PageObjectPostProcessor.class})
 public class Search_sd {
 
     @Autowired

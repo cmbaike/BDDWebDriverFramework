@@ -2,7 +2,6 @@ package com.techboy.selenium.pages;
 
 import com.techboy.selenium.beanconfig.PageObject;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,6 +15,8 @@ import static org.junit.Assert.assertTrue;
  */
 
 @Scope("cucumber-glue")
+@PageObject
+@Component
 public class HomePage extends LoadableComponent<HomePage> {
 
     @Autowired
@@ -25,7 +26,6 @@ public class HomePage extends LoadableComponent<HomePage> {
     private Environment environment;
 
     static String title = "Google";
-
 
     @Override
     protected void load() {

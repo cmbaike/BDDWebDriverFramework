@@ -2,8 +2,6 @@ package com.techboy.selenium.beanconfig;
 
 import com.techboy.selenium.browserdriver.BrowserDriverExtended;
 import com.techboy.selenium.config.BrowserCapabilities;
-import com.techboy.selenium.pages.HomePage;
-import com.techboy.selenium.pages.Search;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -232,18 +230,6 @@ public class BeanConfig {
             Environment env=context.getEnvironment();
             return !env.getProperty("gridURL").isEmpty();
         }
-    }
-
-    @Bean
-    @PageObject
-    public HomePage homePage(){
-        return  new HomePage();
-    }
-
-    @Bean
-    @PageObject
-    public Search search(){
-        return new Search();
     }
 
 }

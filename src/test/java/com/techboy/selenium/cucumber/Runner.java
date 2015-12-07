@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(monochrome = true, strict = true,
     tags = {"@smoke-test"},
-    features = "src\\test\\resources\\com.techboy.selenium.features\\search.feature",
+    features = "src/test/resources/com.techboy.selenium.features/search.feature",
     format = {"html:target/cucumber"},
     glue = {"com/techboy/selenium/step_def"}
 

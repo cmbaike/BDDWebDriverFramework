@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 /**
  * Created by Christopher on 06/12/2015.
  */
-@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Component
 public @interface PageObject {
