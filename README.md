@@ -1,4 +1,4 @@
-#SeleniumWebDriverFramework
+#BDDWebDriverFramework-Still work in progress
 
 A maven Selenium framework that is built which allows Spring to manage dependency via dependency injection.
 
