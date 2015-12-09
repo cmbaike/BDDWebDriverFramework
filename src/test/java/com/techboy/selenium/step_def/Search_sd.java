@@ -1,7 +1,6 @@
 package com.techboy.selenium.step_def;
 
 import com.techboy.selenium.beanconfig.BeanConfig;
-import com.techboy.selenium.beanconfig.PageObjectPostProcessor;
 import com.techboy.selenium.pages.HomePage;
 import com.techboy.selenium.pages.Search;
 import com.techboy.selenium.pages.SearchPageResult;
@@ -22,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
-@ContextConfiguration(classes={BeanConfig.class,SearchPageResult.class,HomePage.class,Search.class,PageObjectPostProcessor.class})
+@ContextConfiguration(classes={BeanConfig.class,SearchPageResult.class,HomePage.class,Search.class})
 public class Search_sd {
 
     @Autowired

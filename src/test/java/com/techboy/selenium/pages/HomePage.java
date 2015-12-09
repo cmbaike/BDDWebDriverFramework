@@ -1,12 +1,7 @@
 package com.techboy.selenium.pages;
 
-import com.techboy.selenium.beanconfig.PageObject;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.LoadableComponent;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.techboy.selenium.beanconfig.PageObjectBase;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 import static org.junit.Assert.assertTrue;
 
@@ -15,17 +10,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 @Scope("cucumber-glue")
-@PageObject
-@Component
-public class HomePage extends LoadableComponent<HomePage> {
-
-    @Autowired
-    private WebDriver driver;
-
-    @Autowired
-    private Environment environment;
-
-    static String title = "Google";
+public class HomePage extends PageObjectBase {
 
     @Override
     protected void load() {
@@ -34,10 +19,14 @@ public class HomePage extends LoadableComponent<HomePage> {
 
     @Override
     protected void isLoaded() throws Error {
-        assertTrue(driver.getTitle().contains(title));
+        assertTrue(driver.getTitle().contains(getTitle()));
     }
 
-    public Search search(){
-        return  new Search();
+    public Search search() {
+        return new Search();
+    }
+
+    public String getTitle() {
+        return "Google";
     }
 }
