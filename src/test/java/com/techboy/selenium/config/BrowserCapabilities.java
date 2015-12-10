@@ -29,9 +29,9 @@ public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
 
 
     public DesiredCapabilities getFirefoxCapabilities() throws IOException {
-        String firebugPath = "selenium_browser_drivers/firebug-2.0.11-fx.xpi";
-        String firePathPath = "selenium_browser_drivers/firepath-0.9.7.1-fx.xpi";
-        String netExportPath = "selenium_browser_drivers/netExport-0.9b6.xpi";
+        String firebugPath = "firebug_plugin/firebug-2.0.11-fx.xpi";
+        String firePathPath = "firebug_plugin/firepath-0.9.7.1-fx.xpi";
+        String netExportPath = "firebug_plugin/netExport-0.9b6.xpi";
         FirefoxProfile firefoxProfile=new FirefoxProfile();
         firefoxProfile.addExtension(new File(firebugPath));
         firefoxProfile.addExtension(new File(firePathPath));
