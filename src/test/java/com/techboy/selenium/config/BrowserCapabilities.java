@@ -104,5 +104,4 @@ public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
         return new BrowserCapabilities();
     }
 
-
 }

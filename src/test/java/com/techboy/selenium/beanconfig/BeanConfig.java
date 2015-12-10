@@ -3,7 +3,6 @@ package com.techboy.selenium.beanconfig;
 import com.techboy.selenium.browserdriver.BrowserDriverExtended;
 import com.techboy.selenium.config.BrowserCapabilities;
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,6 @@ public class BeanConfig {
     private URL seleniumGridURL;
 
     protected static final Logger LOG = LoggerFactory.getLogger(BeanConfig.class);
-    private String workingOS = System.getProperty("os.name").toLowerCase();
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
 
@@ -43,7 +41,7 @@ public class BeanConfig {
      * @link Initialize system path variables for browsers
      */
     @PostConstruct
-    public void systemPath() throws IOException {
+    public void getEnvironmentInfo() throws IOException {
 
         LOG.info(" ");
         LOG.info("Current Operating System: " + operatingSystem);
@@ -52,14 +50,7 @@ public class BeanConfig {
         LOG.info("Use RemoteWebDriver: " + environment.getProperty("remote", "false"));
         LOG.info(" ");
 
-        if (workingOS.contains("windows")) {
-            System.setProperty("webdriver.chrome.driver", "selenium_browser_drivers/windowsChromedriver/chromedriver.exe");
-            System.setProperty("webdriver.ie.driver", "selenium_browser_drivers\\IEDriverServer.exe");
-        } else if (workingOS.contains("mac")) {
-            System.setProperty("webdriver.chrome.driver", "selenium_browser_drivers/macChromedriver/chromedriver");
-        } else if (workingOS.contains("linux")) {
-            System.setProperty("webdriver.chrome.driver", "selenium_browser_drivers/linuxChromedriver/chromedriver");
-        }
+
     }
 
 
@@ -112,12 +103,6 @@ public class BeanConfig {
             capabilities.setVersion(desiredBrowserVersion);
         }
         return new BrowserDriverExtended.RemoteWebDriverExtended(seleniumGridURL, capabilities);
-    }
-
-    @Bean
-    @Conditional(BeanConfig.FirefoxCapabilityCondition.class)
-    public FirefoxProfile firefoxProfile(){
-        return new FirefoxProfile();
     }
 
 
