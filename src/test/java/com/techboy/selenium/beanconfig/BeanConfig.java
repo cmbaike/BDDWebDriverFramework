@@ -23,7 +23,7 @@ import java.util.List;
  * {@link} BeanConfig config class for all bean creation
  */
 
-@PropertySource("classpath:app.properties")
+@PropertySource({"classpath:app.properties","classpath:mavenproject.properties"})
 @Configuration
 public class BeanConfig {
 
@@ -46,11 +46,13 @@ public class BeanConfig {
         LOG.info(" ");
         LOG.info("Current Operating System: " + operatingSystem);
         LOG.info("Current Architecture: " + systemArchitecture);
-        LOG.info("Current Browser Selection: " + environment.getProperty("browser","firefox"));
+        LOG.info("Current Browser Selection: " + environment.getProperty("browser", "firefox"));
         LOG.info("Use RemoteWebDriver: " + environment.getProperty("remote", "false"));
         LOG.info(" ");
 
-
+        System.setProperty("webdriver.chrome.driver",environment.getProperty("webdriver.chrome.driver"));
+        System.setProperty("webdriver.opera.driver",environment.getProperty("webdriver.opera.driver"));
+        System.setProperty("webdriver.ie.driver",environment.getProperty("webdriver.ie.driver"));
     }
 
 
