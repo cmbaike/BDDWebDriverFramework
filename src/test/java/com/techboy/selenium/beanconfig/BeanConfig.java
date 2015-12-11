@@ -7,7 +7,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
@@ -37,6 +39,10 @@ public class BeanConfig {
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
 
+    @Value("${webdriver.chrome.driver}")String chromepath;
+    @Value("${webdriver.opera.driver}")String operapath;
+    @Value("${webdriver.ie.driver}") String iepath;
+
     /**
      * @link Initialize system path variables for browsers
      */
@@ -50,9 +56,9 @@ public class BeanConfig {
         LOG.info("Use RemoteWebDriver: " + environment.getProperty("remote", "false"));
         LOG.info(" ");
 
-        System.setProperty("webdriver.chrome.driver",environment.getProperty("webdriver.chrome.driver"));
-        System.setProperty("webdriver.opera.driver",environment.getProperty("webdriver.opera.driver"));
-        System.setProperty("webdriver.ie.driver",environment.getProperty("webdriver.ie.driver"));
+        System.setProperty("webdriver.chrome.driver",chromepath);
+        System.setProperty("webdriver.opera.driver",operapath);
+        System.setProperty("webdriver.ie.driver",iepath);
     }
 
 
@@ -219,6 +225,10 @@ public class BeanConfig {
         }
     }
 
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 }
 
 
