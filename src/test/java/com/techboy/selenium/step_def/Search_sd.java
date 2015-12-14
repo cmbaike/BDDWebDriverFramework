@@ -56,7 +56,6 @@ public class Search_sd {
         throws Throwable {
 
         List<String> searchResultList = searchPageResult.getSearchResultLink();
-        //Search.driver.manage().timeouts().implicitlyWait(40,TimeUnit.SECONDS);
         assertTrue(searchResultList.contains(environment.getProperty("result_link")));
     }
 }

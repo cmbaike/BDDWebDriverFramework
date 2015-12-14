@@ -1,4 +1,4 @@
-#BDDWebDriverFramework Using Spring 
+#BDDWebDriverFramework Using Spring, Cucumber and PageObject model
 
 A maven BDD Selenium framework that is built which allows Spring to manage dependency via dependency injection.
 
@@ -38,4 +38,3 @@ Note: You can name your test class whatever you want.
 - -DproxyHost=localhost
 - -DproxyPort=8080
 
-_If the tests fail screenshots will be saved in ${project.basedir}/target/screenshots_
