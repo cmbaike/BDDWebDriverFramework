@@ -16,20 +16,7 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <cucumber.version>1.2.2</cucumber.version>
-        <junit.version>4.11</junit.version>
-        <browser>chrome</browser>
-        <remote>false</remote>
-        <gridURL></gridURL>
-        <platform></platform>
-        <browserVersion></browserVersion>
-        <proxyEnabled></proxyEnabled>
-        <proxyHost></proxyHost>
-        <proxyPort></proxyPort>
-        <overwrite.binaries/>
-        <phantomjs.binary.path/>
-        <webdriver.chrome.driver/>
-        <webdriver.ie.driver/>
-        <webdriver.opera.driver/>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
@@ -111,41 +98,6 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <groupId>com.lazerycode.selenium</groupId>
-                        <artifactId>driver-binary-downloader-maven-plugin</artifactId>
-                        <version>1.0.7</version>
-                        <configuration>
-                            <rootStandaloneServerDirectory>${standalone.binary.root.folder}</rootStandaloneServerDirectory>
-                            <downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips</downloadedZipFileDirectory>
-                            <customRepositoryMap>${project.basedir}/src/test/resources/RepositoryMap.xml</customRepositoryMap>
-                            <overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>selenium</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>properties-maven-plugin</artifactId>
-                        <version>1.0-alpha-2</version>
-                        <executions>
-                            <execution>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>write-project-properties</goal>
-                                </goals>
-                                <configuration>
-                                    <outputFile>${project.basedir}/src/test/resources/mavenproject.properties</outputFile>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>2.19</version>
@@ -166,36 +118,6 @@
                             <includes>
                                 <include>**/*Runner*.class</include>
                             </includes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.19</version>
-                        <executions>
-                            <execution>
-                                <phase>process-test-sources</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <browser>${browser}</browser>
-                                <remoteDriver>${remote}</remoteDriver>
-                                <gridURL>${gridURL}</gridURL>
-                                <desiredPlatform>${platform}</desiredPlatform>
-                                <desiredBrowserVersion>${browserVersion}</desiredBrowserVersion>
-                                <proxyEnabled>${proxyEnabled}</proxyEnabled>
-                                <proxyHost>${proxyHost}</proxyHost>
-                                <proxyPort>${proxyPort}</proxyPort>
-                                <!--Set properties passed in by the driver binary downloader-->
-                                <phantomjs.binary.path>${phantomjs.binary.path}</phantomjs.binary.path>
-                                <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
-                                <webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
-                                <webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>
-                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>

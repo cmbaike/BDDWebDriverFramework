@@ -2,6 +2,7 @@ package com.techboy.selenium.beanconfig;
 
 import com.techboy.selenium.browserdriver.BrowserDriverExtended;
 import com.techboy.selenium.config.BrowserCapabilities;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -24,8 +26,7 @@ import java.util.List;
 /**
  * {@link} BeanConfig config class for all bean creation
  */
-
-@PropertySource({"classpath:app.properties","classpath:mavenproject.properties"})
+@PropertySource({"classpath:app.properties"})
 @Configuration
 public class BeanConfig {
 
@@ -39,9 +40,32 @@ public class BeanConfig {
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
 
-    @Value("${webdriver.chrome.driver}")String chromepath;
-    @Value("${webdriver.opera.driver}")String operapath;
-    @Value("${webdriver.ie.driver}") String iepath;
+    @Value("${linux_chromepath}")
+    private String linux_chromepath;
+
+    @Value("${mac_chromepath}")
+    private String mac_chromepath;
+
+    @Value("${win_chromepath}")
+    private String win_chromepath;
+
+    @Value("${win_iepath}")
+    private String win_iepath;
+
+    @Value("${browser}")
+    private String browser;
+
+    @Value("${remote}")
+    private String remote;
+
+    @Value("${gridURL}")
+    private String gridURL;
+
+    @Value("${desiredBrowserVersion}")
+    private String desiredBrowserVersion;
+
+    @Value("${desiredPlatform}")
+    private String desiredPlatform;
 
     /**
      * @link Initialize system path variables for browsers
@@ -52,15 +76,29 @@ public class BeanConfig {
         LOG.info(" ");
         LOG.info("Current Operating System: " + operatingSystem);
         LOG.info("Current Architecture: " + systemArchitecture);
-        LOG.info("Current Browser Selection: " + environment.getProperty("browser", "firefox"));
-        LOG.info("Use RemoteWebDriver: " + environment.getProperty("remote", "false"));
+        LOG.info("Current Browser Selection: " + browser);
+        LOG.info("Use RemoteWebDriver: " + remote);
         LOG.info(" ");
 
-        System.setProperty("webdriver.chrome.driver",chromepath);
-        System.setProperty("webdriver.opera.driver",operapath);
-        System.setProperty("webdriver.ie.driver",iepath);
     }
 
+    @PostConstruct
+    public void setDriverPath() throws IOException {
+        switch (browser.toUpperCase()){
+            case "CHROME":
+        if (operatingSystem.contains("WINDOWS")) {
+            System.setProperty("webdriver.chrome.driver",win_chromepath);
+        } else if (operatingSystem.contains("MAC")) {
+            System.setProperty("webdriver.chrome.driver",mac_chromepath);
+        } else if (operatingSystem.contains("LINUX")) {
+            System.setProperty("webdriver.chrome.driver",linux_chromepath );
+        }
+                break;
+            case "IE":
+                System.setProperty("webdriver.ie.driver",win_iepath);
+                break;
+    }
+        }
 
     /**
      * @link internetExplorer bean generator
@@ -102,8 +140,8 @@ public class BeanConfig {
     @Conditional(BeanConfig.RemoteWebDriverCondition.class)
     @Autowired
     public BrowserDriverExtended.RemoteWebDriverExtended remote(DesiredCapabilities capabilities) throws MalformedURLException {
-        String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
-        String desiredPlatform = System.getProperty("desiredPlatform");
+        String desiredPlatform=environment.getProperty("desiredPlatform");
+        String desiredBrowserVersion=environment.getProperty("desiredBrowserVersion");
         if (null != desiredPlatform && !desiredPlatform.isEmpty()) {
             capabilities.setPlatform(Platform.valueOf(desiredPlatform.toUpperCase()));
         }
