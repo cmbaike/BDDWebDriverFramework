@@ -20,7 +20,6 @@ import static org.junit.Assert.assertTrue;
  * Created by Christopher on 06/12/2015.
  */
 
-@SuppressWarnings("SpringJavaAutowiringInspection")
 @ContextConfiguration(classes={BeanConfig.class,SearchPageResult.class,HomePage.class,Search.class})
 public class Search_sd {
 
@@ -33,8 +32,6 @@ public class Search_sd {
     @Autowired
     private Search search;
 
-    @Autowired
-    private WebDriver driver;
 
     @Autowired
     private Environment environment;
