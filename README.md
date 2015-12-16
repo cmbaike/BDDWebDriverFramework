@@ -15,10 +15,9 @@ _You can also use Sizzle selector in your project. Each browser object has been 
 
 ##What I Should do to run my test
 
-
-- A webDriver object will be wired automatically
+- A webDriver object will be wired automatically using the @Autowired or @inject annotation
   
-Note: You can name your test class whatever you want.
+- Each page created for Homepage should be annotated with @component so spring can implicitly create a bean out of it
 
 ##Further Information
 
