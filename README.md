@@ -7,7 +7,11 @@ A maven BDD Selenium framework that is built which allows Spring to manage depen
 3. CD into project directory
 4. mvn clean verify
 
-_All dependencies will be downloaded and specific driver executable dependencies are already installed in project directory
+_All specific driver executable dependencies are already installed in project directory
+
+_Firefox will always launch with firebug installed in case you need to debug
+
+_You can also use Sizzle selector in your project. Each browser object has been extended to support sizzle selectors
 
 ##What I Should do to run my test
 
