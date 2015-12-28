@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 @ContextConfiguration(classes={BeanConfig.class,SearchPageResult.class,HomePage.class,Search.class})
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class})
 public class Search_sd {
 
     @Autowired
