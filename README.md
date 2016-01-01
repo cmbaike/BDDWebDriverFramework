@@ -1,4 +1,4 @@
-#BDDWebDriverFramework Using Spring, Cucumber and PageObject model
+#BDDWebDriverFramework Using Spring, Cucumber and PageObject model and Javascript Sizzle implementation for advanced element location
 
 A maven BDD Selenium framework that is built which allows Spring to manage dependency via dependency injection.
 
@@ -40,4 +40,6 @@ _You can also use Sizzle selector in your project. Each browser object has been 
 - -DproxyEnabled=true
 - -DproxyHost=localhost
 - -DproxyPort=8080
+
+-For more information and benefit on using sizzle ... Please visit this link https://github.com/jquery/sizzle/wiki
 
