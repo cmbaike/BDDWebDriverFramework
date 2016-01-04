@@ -111,7 +111,7 @@ public class BeanConfig {
     /**
      * @link firefox bean generator
      */
-    @Bean(destroyMethod = "close")
+    @Bean(destroyMethod = "quit")
     @Conditional(BeanConfig.DefaultFirefoxCondition.class)
     @Autowired
     public BrowserDriverExtended.FirefoxDriverExtended firefox(DesiredCapabilities capabilities) {
