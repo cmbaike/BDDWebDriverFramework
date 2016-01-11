@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
  * Created by Christopher on 06/12/2015.
  */
 
-@Scope("cucumber-glue")
+
 public class HomePage extends PageObjectBase {
 
     @Override
