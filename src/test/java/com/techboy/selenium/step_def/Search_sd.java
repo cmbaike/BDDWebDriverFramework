@@ -50,7 +50,7 @@ public class Search_sd {
 
     }
 
-    @Then("^the Thomson Reuters company website link is returned within the results$")
+    @Then("^the Amazon shopping website link is returned within the results$")
     public void the_Thomson_Reuters_company_website_link_is_returned_within_the_results()
         throws Throwable {
 
