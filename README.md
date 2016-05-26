@@ -27,7 +27,7 @@ _You can also use Sizzle selector in your project. Each browser object has been 
 
 -You don't need to download the IEDriverServer, or chromedriver binaries, they are already added to the project directory
 
--You can specify a grid to connect to where you can choose your browser, browser version and platform
+-You can specify a grid to connect to where you can choose your browser, browser version and platform e.g Saucelab, Browserstack or Selenium Grid
 
 - -Dremote=true 
 - -DseleniumGridURL=http://{username}:{accessKey}@ondemand.saucelabs.com:80/wd/hub 
