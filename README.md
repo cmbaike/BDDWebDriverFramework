@@ -1,4 +1,4 @@
-#BDDWebDriverFramework Using Spring, Cucumber and PageObject model and Javascript Sizzle implementation for advanced element location
+#BDDWebDriverFramework Using Java, JUNIT, CucumberJVM, Selenium WebDriver, Spring for dependency injection, Javascript Sizzle implementation for advanced element location
 
 A maven BDD Selenium framework that is built which allows Spring to manage dependency via dependency injection.
 
