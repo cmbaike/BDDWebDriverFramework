@@ -1,7 +1,6 @@
 package com.techboy.selenium.pages;
 
 import com.techboy.selenium.beanconfig.PageObjectBase;
-import org.springframework.context.annotation.Scope;
 
 import static org.junit.Assert.assertTrue;
 

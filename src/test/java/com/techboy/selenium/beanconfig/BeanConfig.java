@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import javax.annotation.PostConstruct;
@@ -36,9 +35,6 @@ public class BeanConfig {
 
     @Autowired(required = false)
     private URL seleniumGridURL;
-
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     private static final Logger LOG = LoggerFactory.getLogger(BeanConfig.class);
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
