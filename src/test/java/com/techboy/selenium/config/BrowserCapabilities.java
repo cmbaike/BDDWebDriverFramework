@@ -9,15 +9,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
-
-/**
- * Created by christopher on 01/12/2015.
- */
 
 
 public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
@@ -29,9 +26,13 @@ public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
 
 
     public DesiredCapabilities getFirefoxCapabilities() throws IOException {
-        String firebugPath = "firebug_plugin/firebug-2.0.11-fx.xpi";
-        String firePathPath = "firebug_plugin/firepath-0.9.7.1-fx.xpi";
-        String netExportPath = "firebug_plugin/netExport-0.9b6.xpi";
+
+        TryFunction<String, String> path = location -> Paths.get(ClassLoader.getSystemResource(location).toURI()).toString();
+
+        String firebugPath = path.apply("firebug_plugin/firebug-2.0.11-fx.xpi");
+        String firePathPath = path.apply("firebug_plugin/firepath-0.9.7.1-fx.xpi");
+        String netExportPath = path.apply("firebug_plugin/netExport-0.9b6.xpi");
+
         FirefoxProfile firefoxProfile=new FirefoxProfile();
         firefoxProfile.addExtension(new File(firebugPath));
         firefoxProfile.addExtension(new File(firePathPath));
@@ -54,6 +55,7 @@ public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
         firefoxProfile.setPreference("extensions.firebug.netexport.compress", false);
         firefoxProfile.setPreference("extensions.firebug.netexport.includeResponseBodies", true);
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setCapability("marionette", true);
         capabilities.setCapability(FirefoxDriver.PROFILE,firefoxProfile);
         return addProxySettings(capabilities, proxy());
     }
@@ -61,8 +63,8 @@ public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
 
     public DesiredCapabilities getChromeCapabilities() {
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability("chrome.switches", Arrays.asList("--no-default-browser-check"));
-        HashMap<String, String> chromePreferences = new HashMap<String, String>();
+        capabilities.setCapability("chrome.switches", Collections.singletonList("--no-default-browser-check"));
+        HashMap<String, String> chromePreferences = new HashMap<>();
         chromePreferences.put("profile.password_manager_enabled", "false");
         capabilities.setCapability("chrome.prefs", chromePreferences);
         System.out.println(proxy());
@@ -77,7 +79,7 @@ public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
         return addProxySettings(capabilities, proxy());
     }
 
-    protected DesiredCapabilities addProxySettings(DesiredCapabilities capabilities, Proxy proxy) {
+    private DesiredCapabilities addProxySettings(DesiredCapabilities capabilities, Proxy proxy) {
         if (null != proxy) {
             capabilities.setCapability(PROXY, proxy);
         }
@@ -85,7 +87,7 @@ public class BrowserCapabilities implements BrowserService<DesiredCapabilities>{
         return capabilities;
     }
 
-    public Proxy proxy() {
+    private Proxy proxy() {
        Proxy proxy;
             if (proxyEnabled) {
                 proxy = new Proxy();

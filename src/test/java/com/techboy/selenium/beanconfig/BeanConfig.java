@@ -2,6 +2,7 @@ package com.techboy.selenium.beanconfig;
 
 import com.techboy.selenium.browserdriver.BrowserDriverExtended;
 import com.techboy.selenium.config.BrowserCapabilities;
+import com.techboy.selenium.config.TryFunction;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
@@ -11,9 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,21 +37,12 @@ public class BeanConfig {
     @Autowired(required = false)
     private URL seleniumGridURL;
 
-    protected static final Logger LOG = LoggerFactory.getLogger(BeanConfig.class);
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    private static final Logger LOG = LoggerFactory.getLogger(BeanConfig.class);
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
-
-    @Value("${linux_chromepath}")
-    private String linux_chromepath;
-
-    @Value("${mac_chromepath}")
-    private String mac_chromepath;
-
-    @Value("${win_chromepath}")
-    private String win_chromepath;
-
-    @Value("${win_iepath}")
-    private String win_iepath;
 
     @Value("${browser}")
     private String browser;
@@ -64,6 +58,7 @@ public class BeanConfig {
 
     @Value("${desiredPlatform}")
     private String desiredPlatform;
+
 
     /**
      * @link Initialize system path variables for browsers
@@ -82,18 +77,21 @@ public class BeanConfig {
 
     @PostConstruct
     public void setDriverPath() throws IOException {
+
+        TryFunction<String, String> path = location -> new File(".").getCanonicalPath()+"/src/test/resources/"+location;
+
         switch (browser.toUpperCase()){
             case "CHROME":
         if (operatingSystem.contains("WINDOWS")) {
-            System.setProperty("webdriver.chrome.driver",win_chromepath);
+            System.setProperty("webdriver.chrome.driver",path.apply("selenium_browser_drivers/windowsChromedriver/chromedriver.exe"));
         } else if (operatingSystem.contains("MAC")) {
-            System.setProperty("webdriver.chrome.driver",mac_chromepath);
+            System.setProperty("webdriver.chrome.driver",path.apply("selenium_browser_drivers/macChromedriver/chromedriver"));
         } else if (operatingSystem.contains("LINUX")) {
-            System.setProperty("webdriver.chrome.driver",linux_chromepath );
+            System.setProperty("webdriver.chrome.driver",path.apply("selenium_browser_drivers/linuxChromedriver/chromedriver"));
         }
                 break;
             case "IE":
-                System.setProperty("webdriver.ie.driver",win_iepath);
+                System.setProperty("webdriver.ie.driver",path.apply("selenium_browser_drivers/windowsIEdriver/IEDriverServer.exe"));
                 break;
     }
         }
